@@ -1,11 +1,15 @@
 import PySimpleGUI as sg
+import os
 
 from yeelight import Bulb
 from tkinter import colorchooser
 
 sg.theme('Dark')
 
-layout = [  [sg.Text("Bulb's IP"), sg.Input(size=(15)), sg.Button('Connect')],
+with open('ip.txt', 'r') as f:
+    ip = f.read()
+
+layout = [  [sg.Text("Bulb's IP"), sg.Input(default_text=(ip) ,size=(15)), sg.Button('Connect')],
             [sg.Button('Enable'), sg.Button('Disable'), sg.Button('Color'), sg.Button('Brightness')],
             [sg.Text('yuutilde.github.io')]]
 
@@ -17,6 +21,8 @@ while True:
         break
     if event == 'Connect':
         ip = values[0]
+        with open('ip.txt', 'w') as f:
+            f.write(ip)
         bulb = Bulb(ip)
     if event == 'Enable':
         bulb.turn_on()
