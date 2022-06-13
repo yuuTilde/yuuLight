@@ -6,6 +6,9 @@ from tkinter import colorchooser
 
 sg.theme('Dark')
 
+if not os.path.isfile('ip.txt'):
+    with open('ip.txt', 'w') as f:
+        f.close()
 with open('ip.txt', 'r') as f:
     ip = f.read()
 
