@@ -11,6 +11,7 @@ if not os.path.isfile('ip.txt'):
         f.close()
 with open('ip.txt', 'r') as f:
     ip = f.read()
+    bulb = Bulb(ip)
 
 layout = [  [sg.Text("Bulb's IP"), sg.Input(default_text=(ip) ,size=(15)), sg.Button('Connect')],
             [sg.Button('Enable'), sg.Button('Disable'), sg.Button('Color'), sg.Button('Brightness')],
