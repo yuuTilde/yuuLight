@@ -1,10 +1,10 @@
 import PySimpleGUI as sg
 import os
-
 from yeelight import Bulb
 from tkinter import colorchooser
 
 sg.theme('Dark')
+#sg.SetOptions(icon='yuuTilde.ico')
 
 if not os.path.isfile('ip.txt'):
     with open('ip.txt', 'w') as f:
@@ -17,7 +17,7 @@ layout = [  [sg.Text("Bulb's IP"), sg.Input(default_text=(ip) ,size=(15)), sg.Bu
             [sg.Button('Enable'), sg.Button('Disable'), sg.Button('Color'), sg.Button('Brightness')],
             [sg.Text('yuutilde.github.io')]]
 
-window = sg.Window('yuuLight', layout, element_justification='center')
+window = sg.Window('yuuLight', layout, grab_anywhere=True, element_justification='center')
 
 while True:
     event, values = window.read()
