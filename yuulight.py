@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-import os
+from os import path
 from yeelight import Bulb
 from tkinter import colorchooser
 
@@ -7,7 +7,7 @@ def main():
     sg.theme('Dark')
     #sg.SetOptions(icon='yuuTilde.ico')
 
-    if not os.path.isfile('ip.txt'):
+    if not path.isfile('ip.txt'):
         with open('ip.txt', 'w') as f:
             f.close()
     with open('ip.txt', 'r') as f:
