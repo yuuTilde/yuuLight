@@ -1,2 +1,2 @@
 # yuuLight
-<img src="./img/yuuLight.png">
+<img src="./img/Preview.png">
