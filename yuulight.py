@@ -5,7 +5,6 @@ from yeelight import Bulb
 
 def main():
     sg.theme("Dark")
-    sg.SetOptions(icon="img/yuuLight.ico")
 
     if not path.isfile("ip.txt"):
         with open("ip.txt", "w") as f:
@@ -55,7 +54,7 @@ def main():
     ]
 
     window = sg.Window(
-        "yuuLight", layout, element_justification="center", resizable=False
+        "yuuLight", layout, element_justification="center", resizable=False, icon="img/yuuLight.ico"
     )
 
     while True:
