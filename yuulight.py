@@ -1,11 +1,11 @@
-import PySimpleGUI as sg
+import PySimpleGUIQt as sg
 from os import path
 from yeelight import Bulb
 
 
 def main():
     sg.theme("Dark")
-    sg.SetOptions(icon="img/yuuLight.ico")
+    # sg.SetOptions(icon="img/yuuLight.ico")
 
     if not path.isfile("ip.txt"):
         with open("ip.txt", "w") as f:
@@ -17,15 +17,18 @@ def main():
     layout = [
         [
             sg.Text("Bulb's IP"),
-            sg.Input(default_text=(ip), size=(15)),
+            sg.InputText(default_text=(ip)),
             sg.Button("Connect"),
         ],
-        [sg.Button("On/Off"), sg.Button("Color")],
+        [
+            sg.Button("On/Off"),
+            sg.InputText(change_submits=True, key="ColorA", visible=False),
+            sg.ColorChooserButton("Color", target="ColorA"),
+        ],
         [
             sg.Slider(
                 range=(0, 100),
                 orientation="horizontal",
-                disable_number_display=True,
                 change_submits=True,
                 key="Brightness",
             )
@@ -39,7 +42,6 @@ def main():
             sg.Slider(
                 range=(1700, 6500),
                 orientation="horizontal",
-                disable_number_display=True,
                 change_submits=True,
                 key="Temperature",
             )
@@ -53,7 +55,7 @@ def main():
     ]
 
     window = sg.Window(
-        "yuuLight", layout, grab_anywhere=True, element_justification="center"
+        "yuuLight", layout, element_justification="center", resizable=False
     )
 
     while True:
@@ -69,10 +71,12 @@ def main():
             bulb = Bulb(ip)
         if event == "On/Off":
             bulb.toggle()
-        if event == "Color":
-            color = sg.askcolor()[-2]
-            if color is not None:
-                bulb.set_rgb(color[0][0], color[0][1], color[0][2])
+        if event == "ColorA":
+            color = values["ColorA"]
+            rgb = [int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)]
+            if rgb[0] == 0 and rgb[1] == 0 and rgb[2] == 0:
+                rgb = [255, 255, 255]
+            bulb.set_rgb(*rgb)
         if event == "BrightnessApply":
             bulb.set_brightness(values["Brightness"])
         if event == "TemperatureApply":
