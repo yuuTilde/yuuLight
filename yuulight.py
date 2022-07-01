@@ -1,10 +1,10 @@
-import PySimpleGUIQt as sg
+import PySimpleGUIQt as Sg
 from os import path
 from yeelight import Bulb
 
 
 def main():
-    sg.theme("Dark")
+    Sg.theme("Dark")
 
     if not path.isfile("ip.txt"):
         with open("ip.txt", "w") as f:
@@ -15,17 +15,17 @@ def main():
 
     layout = [
         [
-            sg.Text("Bulb's IP"),
-            sg.InputText(default_text=(ip)),
-            sg.Button("Connect"),
+            Sg.Text("Bulb's IP"),
+            Sg.InputText(default_text=ip),
+            Sg.Button("Connect"),
         ],
         [
-            sg.Button("On/Off"),
-            sg.InputText(change_submits=True, key="ColorA", visible=False),
-            sg.ColorChooserButton("Color", target="ColorA"),
+            Sg.Button("On/Off"),
+            Sg.InputText(change_submits=True, key="ColorA", visible=False),
+            Sg.ColorChooserButton("Color", target="ColorA"),
         ],
         [
-            sg.Slider(
+            Sg.Slider(
                 range=(0, 100),
                 orientation="horizontal",
                 change_submits=True,
@@ -33,12 +33,12 @@ def main():
             )
         ],
         [
-            sg.Text("Brightness:"),
-            sg.Text("0", key="BrightnessText"),
-            sg.Button("Apply", key="BrightnessApply"),
+            Sg.Text("Brightness:"),
+            Sg.Text("0", key="BrightnessText"),
+            Sg.Button("Apply", key="BrightnessApply"),
         ],
         [
-            sg.Slider(
+            Sg.Slider(
                 range=(1700, 6500),
                 orientation="horizontal",
                 change_submits=True,
@@ -46,20 +46,23 @@ def main():
             )
         ],
         [
-            sg.Text("Temperature:"),
-            sg.Text("0", key="TemperatureText"),
-            sg.Button("Apply", key="TemperatureApply"),
+            Sg.Text("Temperature:"),
+            Sg.Text("0", key="TemperatureText"),
+            Sg.Button("Apply", key="TemperatureApply"),
         ],
-        [sg.Text("yuutilde.github.io")],
+        [Sg.Text("yuutilde.github.io")],
     ]
 
-    window = sg.Window(
-        "yuuLight", layout, element_justification="center", resizable=False, icon="img/yuuLight.ico"
+    window = Sg.Window(
+        "yuuLight",
+        layout,
+        element_justification="center",
+        resizable=False,  # icon="img/yuuLight.ico"
     )
 
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED:
+        if event == Sg.WIN_CLOSED:
             break
         window.Element("BrightnessText").Update(values["Brightness"])
         window.Element("TemperatureText").Update(values["Temperature"])
