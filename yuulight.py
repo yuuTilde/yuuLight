@@ -57,7 +57,7 @@ def main():
         "yuuLight",
         layout,
         element_justification="center",
-        resizable=False,  # icon="img/yuuLight.ico"
+        resizable=False
     )
 
     while True:
