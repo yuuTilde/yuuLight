@@ -15,7 +15,7 @@ def main():
 
     layout = [
         [
-            Sg.Text("Bulb's IP"),
+            Sg.Text("IP"),
             Sg.InputText(default_text=ip),
             Sg.Button("Connect"),
         ],
@@ -50,14 +50,10 @@ def main():
             Sg.Text("0", key="TemperatureText"),
             Sg.Button("Apply", key="TemperatureApply"),
         ],
-        [Sg.Text("yuutilde.github.io")],
     ]
 
     window = Sg.Window(
-        "yuuLight",
-        layout,
-        element_justification="center",
-        resizable=False
+        "yuuLight", layout, element_justification="center", resizable=False
     )
 
     while True:
