@@ -2,5 +2,5 @@
 <img src="./img/Preview.png">
 
 ###### USED:
-[PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI)
-[yeelight](https://gitlab.com/stavros/python-yeelight)
+* [PySimpleGUI](https://github.com/PySimpleGUI/PySimpleGUI)
+* [yeelight](https://gitlab.com/stavros/python-yeelight)
