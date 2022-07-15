@@ -1,5 +1,6 @@
-import PySimpleGUIQt as sg
 import configparser
+
+import PySimpleGUIQt as sg
 from yeelight import Bulb
 
 
