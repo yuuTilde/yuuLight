@@ -1,31 +1,29 @@
-import PySimpleGUIQt as Sg
-from os import path
+import PySimpleGUIQt as sg
+import configparser
 from yeelight import Bulb
 
 
 def main():
-    Sg.theme("Dark")
+    sg.theme("Dark")
 
-    if not path.isfile("ip.txt"):
-        with open("ip.txt", "w") as f:
-            f.close()
-    with open("ip.txt", "r") as f:
-        ip = f.read()
-        bulb = Bulb(ip)
+    config = configparser.ConfigParser()
+    config.read("cfg.ini")
+    ip = config["yeelight"]["ip"]
+    bulb = Bulb(ip)
 
     layout = [
         [
-            Sg.Text("IP"),
-            Sg.InputText(default_text=ip),
-            Sg.Button("Connect"),
+            sg.Text("IP"),
+            sg.InputText(default_text=ip),
+            sg.Button("Connect"),
         ],
         [
-            Sg.Button("On/Off"),
-            Sg.InputText(change_submits=True, key="ColorA", visible=False),
-            Sg.ColorChooserButton("Color", target="ColorA"),
+            sg.Button("On/Off"),
+            sg.InputText(change_submits=True, key="ColorA", visible=False),
+            sg.ColorChooserButton("Color", target="ColorA"),
         ],
         [
-            Sg.Slider(
+            sg.Slider(
                 range=(0, 100),
                 orientation="horizontal",
                 change_submits=True,
@@ -33,12 +31,12 @@ def main():
             )
         ],
         [
-            Sg.Text("Brightness:"),
-            Sg.Text("0", key="BrightnessText"),
-            Sg.Button("Apply", key="BrightnessApply"),
+            sg.Text("Brightness:"),
+            sg.Text("0", key="BrightnessText"),
+            sg.Button("Apply", key="BrightnessApply"),
         ],
         [
-            Sg.Slider(
+            sg.Slider(
                 range=(1700, 6500),
                 orientation="horizontal",
                 change_submits=True,
@@ -46,19 +44,19 @@ def main():
             )
         ],
         [
-            Sg.Text("Temperature:"),
-            Sg.Text("0", key="TemperatureText"),
-            Sg.Button("Apply", key="TemperatureApply"),
+            sg.Text("Temperature:"),
+            sg.Text("0", key="TemperatureText"),
+            sg.Button("Apply", key="TemperatureApply"),
         ],
     ]
 
-    window = Sg.Window(
+    window = sg.Window(
         "yuuLight", layout, element_justification="center", resizable=False
     )
 
     while True:
         event, values = window.read()
-        if event == Sg.WIN_CLOSED:
+        if event == sg.WIN_CLOSED:
             break
         window.Element("BrightnessText").Update(values["Brightness"])
         window.Element("TemperatureText").Update(values["Temperature"])
