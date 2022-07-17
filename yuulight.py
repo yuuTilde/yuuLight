@@ -1,4 +1,4 @@
-import configparser
+import os.path
 
 import PySimpleGUIQt as sg
 from yeelight import Bulb
@@ -7,10 +7,12 @@ from yeelight import Bulb
 def main():
     sg.theme("Dark")
 
-    config = configparser.ConfigParser()
-    config.read("cfg.ini")
-    ip = config["yeelight"]["ip"]
-    bulb = Bulb(ip)
+    if not os.path.isfile("ip.txt"):
+        with open("ip.txt", "w") as f:
+            f.close()
+    with open("ip.txt", "r") as f:
+        ip = f.read()
+        bulb = Bulb(ip)
 
     layout = [
         [
