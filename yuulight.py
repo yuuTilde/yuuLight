@@ -82,7 +82,7 @@ def main():
             if event == "TemperatureApply":
                 bulb.set_color_temp(values["Temperature"])
         except Exception as e:
-            sg.popup(str("Check IP or Connection"), str(e))
+            sg.Popup(str("Check IP or Connection"), str(e))
     window.close()
 
 
