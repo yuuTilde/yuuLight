@@ -63,23 +63,26 @@ def main():
             break
         window.Element("BrightnessText").Update(values["Brightness"])
         window.Element("TemperatureText").Update(values["Temperature"])
-        if event == "Connect":
-            ip = values[0]
-            with open("ip.txt", "w") as f:
-                f.write(ip)
-            bulb = Bulb(ip)
-        if event == "On/Off":
-            bulb.toggle()
-        if event == "ColorA":
-            color = values["ColorA"]
-            rgb = [int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)]
-            if rgb[0] == 0 and rgb[1] == 0 and rgb[2] == 0:
-                rgb = [255, 255, 255]
-            bulb.set_rgb(*rgb)
-        if event == "BrightnessApply":
-            bulb.set_brightness(values["Brightness"])
-        if event == "TemperatureApply":
-            bulb.set_color_temp(values["Temperature"])
+        try:
+            if event == "Connect":
+                ip = values[0]
+                with open("ip.txt", "w") as f:
+                    f.write(ip)
+                bulb = Bulb(ip)
+            if event == "On/Off":
+                bulb.toggle()
+            if event == "ColorA":
+                color = values["ColorA"]
+                rgb = [int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)]
+                if rgb[0] == 0 and rgb[1] == 0 and rgb[2] == 0:
+                    rgb = [255, 255, 255]
+                bulb.set_rgb(*rgb)
+            if event == "BrightnessApply":
+                bulb.set_brightness(values["Brightness"])
+            if event == "TemperatureApply":
+                bulb.set_color_temp(values["Temperature"])
+        except Exception as e:
+            sg.popup(str("Check IP or Connection"), str(e))
     window.close()
 
 
